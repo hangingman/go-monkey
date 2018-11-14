@@ -2,6 +2,7 @@ package lexer
 
 import "bitbucket.org/hangedman/go-monkey/token"
 
+// Lexer は入力された文字列に対する現状の検査状況を保持します
 type Lexer struct {
 	input        string  // 入力 
 	position     int     // 現在の文字の位置
@@ -9,6 +10,7 @@ type Lexer struct {
 	ch           byte    // 現在検査中の文字
 }
 
+// New は与えられた文字列に対するトークンを返します
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
@@ -29,6 +31,7 @@ func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
 
+// NextToken は入力を１文字読み出してトークンを返します
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
