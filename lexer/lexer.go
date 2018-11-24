@@ -17,6 +17,7 @@ func New(input string) *Lexer {
 	return l
 }
 
+// readChar は文字列を１文字読み進める
 func (l *Lexer) readChar() {
 	if l.readPosition >= len(l.input) {
 		l.ch = 0
@@ -25,6 +26,14 @@ func (l *Lexer) readChar() {
 	}
 	l.position = l.readPosition
 	l.readPosition++
+}
+
+// peekChar は次の文字を読んで返す（現在位置は進めない）
+func (l *Lexer) peekChar() byte {
+    if l.readPosition >= len(l.input) {
+        return 0
+    }
+    return l.input[l.readPosition]
 }
 
 // readIdentifier は識別子を読み出して非英字まで読み進める
@@ -54,13 +63,27 @@ func (l *Lexer) NextToken() token.Token {
     
 	switch l.ch {
 	case '=':
-		tok = newToken(token.ASSIGN, l.ch)
+        if l.peekChar() == '=' {
+            ch := l.ch
+            l.readChar()
+            literal := string(ch) + string(l.ch)
+            tok = token.Token{Type: token.EQ, Literal: literal}
+        } else {
+            tok = newToken(token.ASSIGN, l.ch)
+        }
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
 	case '-':
 		tok = newToken(token.MINUS, l.ch)
 	case '!':
-		tok = newToken(token.BANG, l.ch)
+        if l.peekChar() == '=' {
+            ch := l.ch
+            l.readChar()
+            literal := string(ch) + string(l.ch)
+            tok = token.Token{Type: token.NOTEQ, Literal: literal}            
+        } else {
+            tok = newToken(token.BANG, l.ch)
+        }
 	case '/':
 		tok = newToken(token.SLASH, l.ch)
 	case '*':
