@@ -15,4 +15,4 @@ pipelines:
           - echo ${PACKAGE_PATH}
           - cd "${PACKAGE_PATH}"
           - go build -v
-          - go test -v
+          - go test -v "${PACKAGE_PATH}/..."
