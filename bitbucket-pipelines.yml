@@ -15,4 +15,4 @@ pipelines:
           - echo ${PACKAGE_PATH}
           - cd "${PACKAGE_PATH}"
           - go build -v
-          - go test -v "${PACKAGE_PATH}/..."
+          - go test -v "bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/..."
