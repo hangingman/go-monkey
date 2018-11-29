@@ -1,4 +1,4 @@
-# go-monkey
+# go-monkey [![Build Status](https://travis-ci.org/hangingman/go-monkey.svg?branch=master)](https://travis-ci.org/hangingman/go-monkey)
 
 Golang lexer/parser learning scripts
 
