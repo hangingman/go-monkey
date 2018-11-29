@@ -7,11 +7,11 @@ Golang lexer/parser learning scripts
 ```
 $ mkdir -p ~/.go/src/github.com/hangingman/
 $ cd ~/.go/src/github.com/hangingman/
-$ git clone git@bitbucket.org:hangedman/go-monkey.git
+$ git clone git@github.com/hangingman/go-monkey.git
 ```
 
 ## test
 
 ```
-$ go test ./lexer
+$ go test github.com/hangingman/go-monkey/...
 ```

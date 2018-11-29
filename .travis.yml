@@ -1,0 +1,10 @@
+language: go
+
+go:
+  - "1.10"
+
+install:
+ - go get -u github.com/hangingman/go-monkey
+
+script:
+ - go test github.com/hangingman/go-monkey/...
