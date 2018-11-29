@@ -1,6 +1,6 @@
 package lexer
 
-import "bitbucket.org/hangedman/go-monkey/token"
+import "github.com/hangingman/go-monkey/token"
 
 // Lexer は入力された文字列に対する現状の検査状況を保持します
 type Lexer struct {

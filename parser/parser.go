@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"bitbucket.org/hangedman/go-monkey/ast"
-	"bitbucket.org/hangedman/go-monkey/lexer"
-	"bitbucket.org/hangedman/go-monkey/token"
+	"github.com/hangingman/go-monkey/ast"
+	"github.com/hangingman/go-monkey/lexer"
+	"github.com/hangingman/go-monkey/token"
 )

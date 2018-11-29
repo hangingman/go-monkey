@@ -4,8 +4,8 @@ import (
     "bufio"
     "fmt"
     "io"
-    "bitbucket.org/hangedman/go-monkey/lexer"
-    "bitbucket.org/hangedman/go-monkey/token"
+    "github.com/hangingman/go-monkey/lexer"
+    "github.com/hangingman/go-monkey/token"
 )
 
 const PROMPT = ">> "

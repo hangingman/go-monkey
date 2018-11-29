@@ -2,7 +2,7 @@ package lexer
 
 import (
 	"testing"
-	"bitbucket.org/hangedman/go-monkey/token"
+	"github.com/hangingman/go-monkey/token"
 )
 
 func TestStatements(t *testing.T) {

@@ -1,7 +1,7 @@
 package ast
 
 
-import "bitbucket.org/hangedman/go-monkey/token"
+import "github.com/hangingman/go-monkey/token"
 
 
 type Node interface {

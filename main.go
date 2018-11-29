@@ -4,7 +4,7 @@ import (
     "fmt"
     "os"
     "os/user"
-    "bitbucket.org/hangedman/go-monkey/repl"
+    "github.com/hangingman/go-monkey/repl"
 )
 
 func main() {
