@@ -7,7 +7,7 @@ type TokenType string
 // TokenType にはtoken内で定義したconst値
 // Literal には実際に読み取った文字列
 type Token struct {
-	Type TokenType
+	Type    TokenType
 	Literal string
 }
 
@@ -18,42 +18,42 @@ const (
 	INT       = "INT"
 	ASSIGN    = "="
 	PLUS      = "+"
-    MINUS     = "-"
-    BANG      = "!"
-    ASTERISK  = "*"
-    SLASH     = "/"
+	MINUS     = "-"
+	BANG      = "!"
+	ASTERISK  = "*"
+	SLASH     = "/"
 	COMMA     = ","
 	SEMICOLON = ";"
 	LPAREN    = "("
 	RPAREN    = ")"
 	LBRACE    = "{"
 	RBRACE    = "}"
-    LT        = "<"
-    GT        = ">"
+	LT        = "<"
+	GT        = ">"
 	FUNCTION  = "FUNCTION"
 	LET       = "LET"
-    TRUE      = "TRUE"
-    FALSE     = "FALSE"
-    IF        = "IF"
-    ELSE      = "ELSE"
-    RETURN    = "RETURN"
-    EQ        = "=="
-    NOTEQ     = "!="
+	TRUE      = "TRUE"
+	FALSE     = "FALSE"
+	IF        = "IF"
+	ELSE      = "ELSE"
+	RETURN    = "RETURN"
+	EQ        = "=="
+	NOTEQ     = "!="
 )
 
-var keywords = map[string] TokenType{
-    "fn": FUNCTION,
-    "let": LET,
-    "true": TRUE,
-    "false": FALSE,
-    "if": IF,
-    "else": ELSE,
-    "return": RETURN,
+var keywords = map[string]TokenType{
+	"fn":     FUNCTION,
+	"let":    LET,
+	"true":   TRUE,
+	"false":  FALSE,
+	"if":     IF,
+	"else":   ELSE,
+	"return": RETURN,
 }
 
 func LookupIndent(ident string) TokenType {
-    if tok, ok := keywords[ident]; ok {
-        return tok
-    }
-    return IDENT
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
 }

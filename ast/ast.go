@@ -1,8 +1,6 @@
 package ast
 
-
 import "github.com/hangingman/go-monkey/token"
-
 
 type Node interface {
 	TokenLiteral() string
@@ -32,11 +30,11 @@ func (p *Program) TokenLiteral() string {
 
 type LetStatement struct {
 	Token token.Token
-	Name *Identifier
+	Name  *Identifier
 	Value Expression
 }
 
-func (ls *LetStatement) statementNode() {}
+func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
 
 type Identifier struct {
@@ -44,5 +42,5 @@ type Identifier struct {
 	Value string
 }
 
-func (i *Identifier) statementNode() {}
+func (i *Identifier) statementNode()       {}
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
