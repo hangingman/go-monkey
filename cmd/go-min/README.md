@@ -3,7 +3,7 @@
 * BNF記法による言語仕様
 ```
 <プログラム>::=[<変数宣言>]<文>
-<変数宣言>::=var<変数名>{","<>}";"
+<変数宣言>::=var<変数名>{","<変数名>}";"
 <文字>::=a|b|...|z
 <変数名>::=<文字>{<文字>}{<数字>}
 <正数字>::=1|2|...|9
@@ -18,7 +18,7 @@
 * プログラム用に英文表記
 ```
 <Program>::=[<VariableDeclaration>]<Statement>
-<VariableDeclaration>::=var<VariableName>{","<>}";"
+<VariableDeclaration>::=var<VariableName>{","<VariableName>}";"
 <Char>::=a|b|...|z
 <VariableName>::=<Char>{<Char>}{<Number>}
 <NaturalNumber>::=1|2|...|9
