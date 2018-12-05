@@ -4,7 +4,7 @@ go:
   - "1.10"
 
 install:
- - go get -u github.com/hangingman/go-monkey
+ - go get github.com/hangingman/go-monkey
 
 script:
  - make test
