@@ -4,11 +4,13 @@ GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
-BINARY_NAMES=go-monkey go-min go-rcf
+MONKEY=go-monkey
+BINARY_NAMES=go-min go-rcf
 
 all: test build
 
 build:
+	$(GOBUILD) -o ${MONKEY} -v
 	@for NAME in $(BINARY_NAMES); do \
 		cd cmd/$${NAME} && $(GOBUILD) -o ../../$${NAME} -v; \
 		cd ../../; \
