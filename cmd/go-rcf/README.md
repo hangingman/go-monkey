@@ -23,5 +23,23 @@
 
 * プログラム用に英文表記
 ```
-
+<Program>::=[<DeclarationPart>]<MainPart>                                                           
+<DeclarationPart>::=[<GlobalVariableDeclarationPart>][<FunctionDeclarationPart>]                    
+<GlobalVariableDeclarationPart>::=var<VariableArray>";"                                             
+<FunctionDeclarationPart>::=def<FunctionDeclaration>in                                              
+<FunctionDeclaration>::=<FunctionDefineExpression>{";"<FunctionDefineExpression>}                   
+<FunctionDefineExpression>::=<FunctionName>"("<LocalVariableDeclaration>")""="<Expression>          
+<LocalVariableDeclaration>::=<VariableArray>                                                        
+<VariableArray>::=[<VariableName>{","<VariableName>}]                                               
+<MainPart本体>::=<Expression>                                                                       
+<Expression>::=<VariableName>|<Constant>|<Expression>+<Expression>|<Expression>*<Expression>|<Expre\
+  ssion>-<Expression>|<Expression>>=<Expression>|"("<Expression>")"|<FunctionName>"("[<Expression>{",\
+  "<Expression>}]")"|if<Expression>then<Expression>else<Expression>fi                                 
+<Char>::=a|b|...|z                                                                                  
+<Ident>::=<Char>{<Char>|<Number>|}                                                                  
+<VariableName>::=<Ident>                                                                            
+<FunctionName>::=<Ident>                                                                            
+<NaturalNumber>::=1|2|...|9                                                                         
+<Number>::=0|<NaturalNumber>                                                                        
+<Constant>::=0|<NaturalNumber>{<Number>}
 ```
