@@ -31,7 +31,7 @@
 <FunctionDefineExpression>::=<FunctionName>"("<LocalVariableDeclaration>")""="<Expression>          
 <LocalVariableDeclaration>::=<VariableArray>                                                        
 <VariableArray>::=[<VariableName>{","<VariableName>}]                                               
-<MainPart本体>::=<Expression>                                                                       
+<MainPart>::=<Expression>                                                                           
 <Expression>::=<VariableName>|<Constant>|<Expression>+<Expression>|<Expression>*<Expression>|<Expre\
   ssion>-<Expression>|<Expression>>=<Expression>|"("<Expression>")"|<FunctionName>"("[<Expression>{",\
   "<Expression>}]")"|if<Expression>then<Expression>else<Expression>fi                                 
