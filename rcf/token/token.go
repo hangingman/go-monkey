@@ -29,35 +29,26 @@ const (
 	LTEQ      = "<="
 	GTEQ      = ">="
 	VAR       = "VAR"
+	DEF       = "DEF"
+	IN        = "IN"
 	TRUE      = "TRUE"
 	FALSE     = "FALSE"
 	IF        = "IF"
 	THEN      = "THEN"
 	ELSE      = "ELSE"
 	FI        = "FI"
-	WHILE     = "WHILE"
-	BEGIN     = "BEGIN"
-	END       = "END"
-	INPUT     = "INPUT"
-	OUTPUT    = "OUTPUT"
-	COLONEQ   = ":="
-	EQ        = "=="
-	NOTEQ     = "!="
 )
 
 var keywords = map[string]TokenType{
-	"var":    VAR,
-	"true":   TRUE,
-	"false":  FALSE,
-	"if":     IF,
-	"then":   THEN,
-	"else":   ELSE,
-	"fi":     FI,
-	"while":  WHILE,
-	"begin":  BEGIN,
-	"end":    END,
-	"input":  INPUT,
-	"output": OUTPUT,
+	"var":   VAR,
+	"def":   DEF,
+	"in":    IN,
+	"true":  TRUE,
+	"false": FALSE,
+	"if":    IF,
+	"then":  THEN,
+	"else":  ELSE,
+	"fi":    FI,
 }
 
 func LookupIndent(ident string) TokenType {

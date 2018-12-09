@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/hangingman/go-monkey/rcf/repl"    
+	"github.com/hangingman/go-monkey/rcf/repl"
 	"os"
 	"os/user"
 )

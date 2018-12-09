@@ -64,14 +64,7 @@ func (l *Lexer) NextToken() token.Token {
 
 	switch l.ch {
 	case '=':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			literal := string(ch) + string(l.ch)
-			tok = token.Token{Type: token.EQ, Literal: literal}
-		} else {
-			tok = newToken(token.ASSIGN, l.ch)
-		}
+		tok = newToken(token.ASSIGN, l.ch)
 	case '<':
 		if l.peekChar() == '=' {
 			ch := l.ch
@@ -94,15 +87,6 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.PLUS, l.ch)
 	case '-':
 		tok = newToken(token.MINUS, l.ch)
-	case ':':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			literal := string(ch) + string(l.ch)
-			tok = token.Token{Type: token.COLONEQ, Literal: literal}
-		} else {
-			tok = newToken(token.ILLEGAL, l.ch)
-		}
 	case '*':
 		tok = newToken(token.ASTERISK, l.ch)
 	case ';':
