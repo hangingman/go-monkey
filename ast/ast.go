@@ -28,6 +28,7 @@ func (p *Program) TokenLiteral() string {
 	}
 }
 
+// LetStatement は`let a = 10;` のような構文を解析する
 type LetStatement struct {
 	Token token.Token
 	Name  *Identifier
@@ -36,6 +37,15 @@ type LetStatement struct {
 
 func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
+
+// ReturnStatement は`return 10;` のような構文を解析する
+type ReturnStatement struct {
+	Token       token.Token
+	ReturnValue Expression
+}
+
+func (ls *ReturnStatement) statementNode()       {}
+func (ls *ReturnStatement) TokenLiteral() string { return ls.Token.Literal }
 
 type Identifier struct {
 	Token token.Token
