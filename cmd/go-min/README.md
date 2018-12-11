@@ -17,8 +17,8 @@
 
 * プログラム用に英文表記
 ```
-<Program>::=[<VariableDeclaration>]<Statement>
-<VariableDeclaration>::=var<VariableName>{","<VariableName>}";"
+<Program>::=[<VarStatement>]<Statement>
+<VarStatement>::=var<VariableName>{","<VariableName>}";"
 <Char>::=a|b|...|z
 <VariableName>::=<Char>{<Char>}{<Number>}
 <NaturalNumber>::=1|2|...|9
