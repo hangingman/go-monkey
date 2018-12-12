@@ -79,7 +79,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.VAR:
 		return p.parseVarStatement()
 	default:
-		return nil
+		return p.parseCompoundStatement()
 	}
 }
 
@@ -106,4 +106,25 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 	}
 
 	return stmt
+}
+
+func (p *Parser) parseCompoundStatement()*ast.CompoundStatement {
+	stmt := &ast.CompoundStatement{}
+
+    switch p.curToken.Type {
+    case token.INPUT:
+    case token.OUTPUT:
+        if !p.expectPeek(token.IDENT) {
+            return nil
+        }
+        stmt.Tokens[0] = p.curToken
+    case token.IF:
+        stmt.Tokens[0] = p.curToken
+    case token.WHILE:
+        stmt.Tokens[0] = p.curToken
+    case token.IDENT:
+        stmt.Tokens[0] = p.curToken
+    }
+    
+    return stmt
 }
