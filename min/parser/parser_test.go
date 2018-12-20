@@ -3,6 +3,7 @@ package parser
 import (
 	"github.com/hangingman/go-monkey/min/ast"
 	"github.com/hangingman/go-monkey/min/lexer"
+	"github.com/hangingman/go-monkey/min/token"
 	"testing"
 )
 
@@ -20,6 +21,21 @@ var i, j, k;
 	expected := 19
 	if actual != expected {
 		t.Errorf("lexedTokens: got %v, want %v", actual, expected)
+	}
+	actualTok1 := p.lookAhead(1)
+	expectTok1 := token.Token{Type: token.IDENT, Literal: "x"}
+	if actualTok1 != expectTok1 {
+		t.Errorf("lookAhead(1): got %v, want %v", actualTok1, expectTok1)
+	}
+	actualTok2 := p.lookAhead(2)
+	expectTok2 := token.Token{Type: token.SEMICOLON, Literal: ";"}
+	if actualTok2 != expectTok2 {
+		t.Errorf("lookAhead(2): got %v, want %v", actualTok2, expectTok2)
+	}
+	actualTok3 := p.lookAhead(3)
+	expectTok3 := token.Token{Type: token.VAR, Literal: "var"}
+	if actualTok3 != expectTok3 {
+		t.Errorf("lookAhead(3): got %v, want %v", actualTok3, expectTok3)
 	}
 }
 

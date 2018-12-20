@@ -44,6 +44,13 @@ func (p *Parser) peekToken() token.Token {
 	return *p.lexedTokens[p.curIndex+1]
 }
 
+func (p *Parser) lookAhead(n int) token.Token {
+	if p.curIndex+n < len(p.lexedTokens) {
+		return *p.lexedTokens[p.curIndex+n]
+	}
+	return token.Token{Type: token.ILLEGAL, Literal: ""}
+}
+
 func (p *Parser) curTokenIs(t token.TokenType) bool {
 	return p.curToken().Type == t
 }
