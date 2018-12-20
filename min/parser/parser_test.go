@@ -23,42 +23,42 @@ var i, j, k;
 	}
 }
 
-// func TestVarStatements(t *testing.T) {
-// 	input := `
-// var x;
-// var y;
-// var foo, bar;
-// var i, j, k;
-// `
-//l := lexer.New(input)
-//p := New(l)
+func TestVarStatements(t *testing.T) {
+	input := `
+var x;
+var y;
+var foo, bar;
+var i, j, k;
+`
+	l := lexer.New(input)
+	p := New(l)
 
-// program := p.ParseProgram()
-// checkParserErrors(t, p)
-// if program == nil {
-// 	t.Fatalf("ParseProgram() returned nil")
-// }
-// if len(program.Statements) != 4 {
-// 	t.Fatalf("program.Statements does not contain 4 statements. got=%d",
-// 		len(program.Statements))
-// }
+	program := p.ParseProgram()
+	// checkParserErrors(t, p)
+	if program == nil {
+		t.Fatalf("ParseProgram() returned nil")
+	}
+	if len(program.Statements) != 4 {
+		t.Fatalf("program.Statements does not contain 4 statements. got=%d",
+			len(program.Statements))
+	}
 
-// tests := []struct {
-// 	expectedIdentifer []string
-// }{
-// 	{[]string{"x"}},
-// 	{[]string{"y"}},
-// 	{[]string{"foo", "bar"}},
-// 	{[]string{"i", "j", "k"}},
-// }
+	tests := []struct {
+		expectedIdentifer []string
+	}{
+		{[]string{"x"}},
+		{[]string{"y"}},
+		{[]string{"foo", "bar"}},
+		{[]string{"i", "j", "k"}},
+	}
 
-// for i, tt := range tests {
-// 	stmt := program.Statements[i]
-// 	if !testVarStatement(t, stmt, tt.expectedIdentifer) {
-// 		return
-// 	}
-// }
-//}
+	for i, tt := range tests {
+		stmt := program.Statements[i]
+		if !testVarStatement(t, stmt, tt.expectedIdentifer) {
+			return
+		}
+	}
+}
 
 func testVarStatement(t *testing.T, s ast.Statement, expectNames []string) bool {
 
@@ -85,12 +85,6 @@ func testVarStatement(t *testing.T, s ast.Statement, expectNames []string) bool 
 			return false
 		}
 	}
-
-	// if varStmt.Names[0].TokenLiteral() != name {
-	// 	t.Errorf("varStmt.Names[0].TokenLiteral() not '%s'. got=%s",
-	// 		name, varStmt.Names[0].TokenLiteral())
-	// 	return false
-	// }
 
 	return true
 }
