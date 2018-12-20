@@ -28,49 +28,12 @@ func (l *Lexer) readChar() {
 	l.readPosition++
 }
 
-// unReadChar は文字列を１文字読み戻す
-func (l *Lexer) unReadChar() {
-	if l.readPosition == 0 {
-		return
-	}
-	l.readPosition--
-	l.position = l.readPosition
-	l.ch = l.input[l.readPosition]
-}
-
-// unReadChars は文字列をn回読み戻す
-func (l *Lexer) unReadChars(n int) {
-	for i := 0; i < n; i++ {
-		l.unReadChar()
-	}
-}
-
 // peekChar は次の文字を読んで返す（現在位置は進めない）
 func (l *Lexer) peekChar() byte {
 	if l.readPosition >= len(l.input) {
 		return 0
 	}
 	return l.input[l.readPosition]
-}
-
-// lookAHead はn個先のtokenを読んで返す（現在位置は進めない）
-// nの値がtokenの数を超えている場合はGo言語の方式でfalseを返す
-func (l *Lexer) lookAhead(n int) (byte, bool) {
-	// var ans byte = '0'
-	actualReadSize := n
-	for i := 0; i < n; i++ {
-		l.readChar()
-		if l.ch == 0 {
-			actualReadSize = i + 1
-			break
-		}
-
-	}
-	defer l.unReadChars(actualReadSize)
-	if actualReadSize == n {
-		return l.input[l.readPosition], true
-	}
-	return 0, false
 }
 
 // readIdentifier は識別子を読み出して非英字まで読み進める

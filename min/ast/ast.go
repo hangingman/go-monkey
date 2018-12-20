@@ -32,22 +32,22 @@ func (p *Program) TokenLiteral() string {
 }
 
 type SimpleStatement struct {
-    Token token.Token
-    Name Identifier
-    Expression Expression
-    CompoundStatements []CompoundStatement
+	Token              token.Token
+	Name               Identifier
+	Expression         Expression
+	CompoundStatements []CompoundStatement
 }
 
-func (ss *SimpleStatement) statementNode()	   {}
+func (ss *SimpleStatement) statementNode()       {}
 func (ss *SimpleStatement) TokenLiteral() string { return ss.Token.Literal }
 
 // CompoundStatement は <複合文>::=<単純文>";"<単純文>{";"<単純文>} を表す
 type CompoundStatement struct {
-    Tokens []token.Token
-    Statements []SimpleStatement
+	Tokens     []token.Token
+	Statements []SimpleStatement
 }
 
-func (cs *CompoundStatement) statementNode()	   {}
+func (cs *CompoundStatement) statementNode()       {}
 func (cs *CompoundStatement) TokenLiteral() string { return cs.Tokens[0].Literal }
 
 // VarStatement は`var a = 10;` のような構文を解析する

@@ -1,13 +1,12 @@
 package parser
 
 import (
-	// "fmt"
 	"github.com/hangingman/go-monkey/min/ast"
 	"github.com/hangingman/go-monkey/min/lexer"
 	"testing"
 )
 
-func TestVarStatements(t *testing.T) {
+func TestParserNew(t *testing.T) {
 	input := `
 var x;
 var y;
@@ -17,32 +16,49 @@ var i, j, k;
 	l := lexer.New(input)
 	p := New(l)
 
-	program := p.ParseProgram()
-	// checkParserErrors(t, p)
-	if program == nil {
-		t.Fatalf("ParseProgram() returned nil")
-	}
-	if len(program.Statements) != 4 {
-		t.Fatalf("program.Statements does not contain 4 statements. got=%d",
-			len(program.Statements))
-	}
-
-	tests := []struct {
-		expectedIdentifer []string
-	}{
-		{[]string{"x"}},
-		{[]string{"y"}},
-		{[]string{"foo", "bar"}},
-		{[]string{"i", "j", "k"}},
-	}
-
-	for i, tt := range tests {
-		stmt := program.Statements[i]
-		if !testVarStatement(t, stmt, tt.expectedIdentifer) {
-			return
-		}
+	actual := len(p.lexedTokens)
+	expected := 19
+	if actual != expected {
+		t.Errorf("lexedTokens: got %v, want %v", actual, expected)
 	}
 }
+
+// func TestVarStatements(t *testing.T) {
+// 	input := `
+// var x;
+// var y;
+// var foo, bar;
+// var i, j, k;
+// `
+//l := lexer.New(input)
+//p := New(l)
+
+// program := p.ParseProgram()
+// checkParserErrors(t, p)
+// if program == nil {
+// 	t.Fatalf("ParseProgram() returned nil")
+// }
+// if len(program.Statements) != 4 {
+// 	t.Fatalf("program.Statements does not contain 4 statements. got=%d",
+// 		len(program.Statements))
+// }
+
+// tests := []struct {
+// 	expectedIdentifer []string
+// }{
+// 	{[]string{"x"}},
+// 	{[]string{"y"}},
+// 	{[]string{"foo", "bar"}},
+// 	{[]string{"i", "j", "k"}},
+// }
+
+// for i, tt := range tests {
+// 	stmt := program.Statements[i]
+// 	if !testVarStatement(t, stmt, tt.expectedIdentifer) {
+// 		return
+// 	}
+// }
+//}
 
 func testVarStatement(t *testing.T, s ast.Statement, expectNames []string) bool {
 
