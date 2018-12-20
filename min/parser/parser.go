@@ -59,6 +59,10 @@ func (p *Parser) peekTokenIs(t token.TokenType) bool {
 	return p.peekToken().Type == t
 }
 
+func (p *Parser) lookAheadIs(n int, t token.TokenType) bool {
+	return p.lookAhead(n).Type == t
+}
+
 func (p *Parser) peekError(t token.TokenType) {
 	msg := fmt.Sprintf("expected next token to be %s, got %s instead",
 		t, p.peekToken().Type)
@@ -92,12 +96,13 @@ func (p *Parser) ParseProgram() *ast.Program {
 }
 
 func (p *Parser) parseStatement() ast.Statement {
-	switch p.curToken().Type {
-	case token.VAR:
+	if p.curToken().Type == token.VAR {
 		return p.parseVarStatement()
-	default:
-		return p.parseCompoundStatement()
 	}
+	if p.isSimpleStatement() {
+		return p.parseSimpleStatement()
+	}
+	return nil
 }
 
 // parseVarStatement は以下のような構文を解析する
@@ -125,18 +130,36 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 	return stmt
 }
 
-func (p *Parser) parseCompoundStatement() *ast.CompoundStatement {
-	stmt := &ast.CompoundStatement{}
+func (p *Parser) isSimpleStatement() bool {
+
+	if p.curTokenIs(token.INPUT) || p.curTokenIs(token.OUTPUT) {
+		if p.lookAheadIs(2, token.SEMICOLON) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func (p *Parser) parseSimpleStatement() *ast.SimpleStatement {
+
+	stmt := &ast.SimpleStatement{Token: p.curToken()}
 
 	switch p.curToken().Type {
 	case token.INPUT:
-	case token.OUTPUT:
-		if !p.expectPeek(token.IDENT) {
-			return nil
+		stmt.Name = ast.Identifier{
+			Token: p.peekToken(),
+			Value: p.peekToken().Literal,
 		}
-	case token.IF:
-	case token.WHILE:
-	case token.IDENT:
+		p.curIndex++
+	case token.OUTPUT:
+		stmt.Name = ast.Identifier{
+			Token: p.peekToken(),
+			Value: p.peekToken().Literal,
+		}
+		p.curIndex++
+	default:
+		return nil
 	}
 
 	return stmt
