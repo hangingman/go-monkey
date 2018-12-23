@@ -40,9 +40,9 @@ var i, j, k;
 
 func TestIsSimpleStatement(t *testing.T) {
 	inputs := []string{
-        "input x",
-        "input x;",
-    }
+		"input x",
+		"input x;",
+	}
 
 	tests := []struct {
 		expectedAnswer bool

@@ -54,3 +54,12 @@ type Identifier struct {
 
 func (i *Identifier) statementNode()       {}
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
+
+// ExpressionStatement は全ての式の解析に使われる文
+type ExpressionStatement struct {
+	Token      token.Token // 式の最初のトークン
+	Expression Expression
+}
+
+func (es *ExpressionStatement) statementNode()       {}
+func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
