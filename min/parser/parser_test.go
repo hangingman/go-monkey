@@ -37,3 +37,26 @@ var i, j, k;
 		t.Errorf("lookAhead(3): got %v, want %v", actualTok3, expectTok3)
 	}
 }
+
+func TestIsSimpleStatement(t *testing.T) {
+	inputs := []string{
+        "input x",
+        "input x;",
+    }
+
+	tests := []struct {
+		expectedAnswer bool
+	}{
+		{true},
+		{false},
+	}
+
+	for i, input := range inputs {
+		l := lexer.New(input)
+		p := New(l)
+		actualAnswer := p.isSimpleStatement()
+		if tests[i].expectedAnswer != actualAnswer {
+			t.Errorf("isSimpleStatement(%s) got %v, want %v", input, actualAnswer, tests[i].expectedAnswer)
+		}
+	}
+}

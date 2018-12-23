@@ -3,7 +3,7 @@ package parser
 import (
 	"github.com/hangingman/go-monkey/min/ast"
 	"github.com/hangingman/go-monkey/min/lexer"
-	"github.com/hangingman/go-monkey/min/token"    
+	"github.com/hangingman/go-monkey/min/token"
 	"testing"
 )
 
@@ -31,11 +31,11 @@ output y
 	}
 
 	tests := []struct {
-        expectedToken token.Token
+		expectedToken     token.Token
 		expectedIdentifer string
 	}{
 		{token.Token{Type: token.INPUT, Literal: string("input")}, "x"},
-        {token.Token{Type: token.OUTPUT, Literal: string("output")}, "y"},
+		{token.Token{Type: token.OUTPUT, Literal: string("output")}, "y"},
 	}
 
 	for i, tt := range tests {
@@ -54,15 +54,15 @@ func testSimpleStatement(t *testing.T, s ast.Statement, expectedToken token.Toke
 		return false
 	}
 
-    if expectedToken != simpleStmt.Token {
-        t.Errorf("simpleStmt.Name.Token not '%s', got=%s", expectedToken, simpleStmt.Token)
-        return false
-    }
-    
-    if expectedName != simpleStmt.Name.Value {
-        t.Errorf("simpleStmt.Name.Value not '%s', got=%s", expectedName, simpleStmt.Name.Value)
-        return false
-    }
+	if expectedToken != simpleStmt.Token {
+		t.Errorf("simpleStmt.Name.Token not '%s', got=%s", expectedToken, simpleStmt.Token)
+		return false
+	}
+
+	if expectedName != simpleStmt.Name.Value {
+		t.Errorf("simpleStmt.Name.Value not '%s', got=%s", expectedName, simpleStmt.Name.Value)
+		return false
+	}
 
 	return true
 }
