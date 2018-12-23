@@ -92,8 +92,9 @@ type Identifier struct {
 	Value string
 }
 
-func (i *Identifier) statementNode()       {}
+func (i *Identifier) expressionNode()       {}
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
+func (i *Identifier) String() string { return i.Value }
 
 // ExpressionStatement は全ての式の解析に使われる文
 type ExpressionStatement struct {
@@ -104,8 +105,6 @@ type ExpressionStatement struct {
 func (es *ExpressionStatement) statementNode()       {}
 func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
 func (es *ExpressionStatement) String() string {
-    var out bytes.Buffer
-
     if es.Expression != nil {
         return es.Expression.String()
     }
