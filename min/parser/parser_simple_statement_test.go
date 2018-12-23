@@ -19,7 +19,7 @@ func TestSimpleStatements(t *testing.T) {
 		t.Fatalf("ParseProgram() returned nil")
 	}
 
-	for stmt := range program.Statements {
+	for _, stmt := range program.Statements {
 		fmt.Printf("%s\n", stmt)
 	}
 
