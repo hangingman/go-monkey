@@ -100,9 +100,11 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseVarStatement()
 	}
 	if p.isSimpleStatement() {
+		// 単純文
 		return p.parseSimpleStatement()
 	}
-	return nil
+	// 複合文
+	return p.parseCompoundStatement()
 }
 
 // parseVarStatement は以下のような構文を解析する
@@ -157,6 +159,28 @@ func (p *Parser) parseSimpleStatement() *ast.SimpleStatement {
 			Token: p.peekToken(),
 			Value: p.peekToken().Literal,
 		}
+		p.curIndex++
+	default:
+		return nil
+	}
+
+	return stmt
+}
+
+func (p *Parser) parseCompoundStatement() *ast.CompoundStatement {
+
+	stmt := &ast.CompoundStatement{Tokens: []token.Token{}}
+
+	switch p.curToken().Type {
+	case token.INPUT:
+		simpleStmt := p.parseSimpleStatement()
+		stmt.Statements = append(stmt.Statements, *simpleStmt)
+		stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
+		p.curIndex++
+	case token.OUTPUT:
+		simpleStmt := p.parseSimpleStatement()
+		stmt.Statements = append(stmt.Statements, *simpleStmt)
+		stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
 		p.curIndex++
 	default:
 		return nil
