@@ -1,7 +1,7 @@
 package parser
 
 import (
-    "fmt"
+	"fmt"
 	"github.com/hangingman/go-monkey/ast"
 	"github.com/hangingman/go-monkey/lexer"
 	"testing"
@@ -85,22 +85,22 @@ func TestParsingPrefixExpressions(t *testing.T) {
 				1, len(program.Statements))
 		}
 
-        stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
-        if !ok {
-            t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
-                program.Statements[0])
-        }
-        exp, ok := stmt.Expression.(*ast.PrefixExpression)
-        if !ok {
-            t.Fatalf("exp not *ast.PrefixExpression. got=%T", stmt.Expression)
-        }
-        if exp.Operator != tt.operator {
-            t.Errorf("exp.Operator is not %s. got=%s",
-                tt.operator, exp.Operator)
-        }
-        if !testIntegerLiteral(t, exp.Right, tt.integerValue) {
-            return
-        }
+		stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+		if !ok {
+			t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
+				program.Statements[0])
+		}
+		exp, ok := stmt.Expression.(*ast.PrefixExpression)
+		if !ok {
+			t.Fatalf("exp not *ast.PrefixExpression. got=%T", stmt.Expression)
+		}
+		if exp.Operator != tt.operator {
+			t.Errorf("exp.Operator is not %s. got=%s",
+				tt.operator, exp.Operator)
+		}
+		if !testIntegerLiteral(t, exp.Right, tt.integerValue) {
+			return
+		}
 	}
 }
 

@@ -101,9 +101,11 @@ func (p *Parser) parseStatement() ast.Statement {
 	}
 	if p.isSimpleStatement() {
 		// 単純文
+		fmt.Printf("isSimpleStatement: true\n")
 		return p.parseSimpleStatement()
 	}
 	// 複合文
+	fmt.Printf("isSimpleStatement: false\n")
 	return p.parseCompoundStatement()
 }
 
@@ -134,6 +136,11 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 
 func (p *Parser) isSimpleStatement() bool {
 
+	fmt.Printf("isSimpleStatement?\n")
+	fmt.Printf("[0] = %s\n", p.curToken())
+	fmt.Printf("[1] = %s\n", p.peekToken())
+	fmt.Printf("[2] = %s\n", p.lookAhead(2))
+
 	if p.curTokenIs(token.INPUT) || p.curTokenIs(token.OUTPUT) {
 		if p.lookAheadIs(2, token.SEMICOLON) {
 			return false
@@ -144,6 +151,10 @@ func (p *Parser) isSimpleStatement() bool {
 }
 
 func (p *Parser) parseSimpleStatement() *ast.SimpleStatement {
+
+	fmt.Printf("simple seq: [0] = %s\n", p.curToken())
+	fmt.Printf("simple seq: [1] = %s\n", p.peekToken())
+	fmt.Printf("simple seq: [2] = %s\n", p.lookAhead(2))
 
 	stmt := &ast.SimpleStatement{Token: p.curToken()}
 
@@ -168,22 +179,31 @@ func (p *Parser) parseSimpleStatement() *ast.SimpleStatement {
 }
 
 func (p *Parser) parseCompoundStatement() *ast.CompoundStatement {
-
+	fmt.Printf("parseCompoundStatement\n")
 	stmt := &ast.CompoundStatement{Tokens: []token.Token{}}
 
-	switch p.curToken().Type {
-	case token.INPUT:
-		simpleStmt := p.parseSimpleStatement()
-		stmt.Statements = append(stmt.Statements, *simpleStmt)
-		stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
+	for {
+		fmt.Printf("comound loop: [0] = %s\n", p.curToken())
+		fmt.Printf("comound loop: [1] = %s\n", p.peekToken())
+		fmt.Printf("comound loop: [2] = %s\n", p.lookAhead(2))
+
+		switch p.curToken().Type {
+		case token.INPUT:
+			simpleStmt := p.parseSimpleStatement()
+			stmt.Statements = append(stmt.Statements, *simpleStmt)
+			stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
+		case token.OUTPUT:
+			simpleStmt := p.parseSimpleStatement()
+			stmt.Statements = append(stmt.Statements, *simpleStmt)
+			stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
+		default:
+			return nil
+		}
+		if p.peekToken().Type == token.EOF || p.isSimpleStatement() {
+			println("break !")
+			break
+		}
 		p.curIndex++
-	case token.OUTPUT:
-		simpleStmt := p.parseSimpleStatement()
-		stmt.Statements = append(stmt.Statements, *simpleStmt)
-		stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
-		p.curIndex++
-	default:
-		return nil
 	}
 
 	return stmt

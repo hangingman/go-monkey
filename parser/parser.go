@@ -52,7 +52,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
 	p.registerPrefix(token.INT, p.parseIntegerLiteral)
 	p.registerPrefix(token.BANG, p.parsePrefixExpression)
-	p.registerPrefix(token.MINUS, p.parsePrefixExpression)        
+	p.registerPrefix(token.MINUS, p.parsePrefixExpression)
 	// ２つトークンを読み込む。curTokenとpeekTokenの両方がセットされる。
 	p.nextToken()
 	p.nextToken()
@@ -109,7 +109,7 @@ func (p *Parser) ParseProgram() *ast.Program {
 }
 
 func (p *Parser) parseStatement() ast.Statement {
-    fmt.Printf("parseStatement: curToken=%s\n", p.curToken)    
+	fmt.Printf("parseStatement: curToken=%s\n", p.curToken)
 	switch p.curToken.Type {
 	case token.LET:
 		return p.parseLetStatement()
@@ -154,7 +154,7 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 }
 
 func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
-    fmt.Printf("parseExpressionStatement: curToken='%s'\n", p.curToken.Literal)
+	fmt.Printf("parseExpressionStatement: curToken='%s'\n", p.curToken.Literal)
 	stmt := &ast.ExpressionStatement{Token: p.curToken}
 
 	stmt.Expression = p.parseExpression(LOWEST)
@@ -167,7 +167,7 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 }
 
 func (p *Parser) parseExpression(precedence int) ast.Expression {
-    fmt.Printf("parseExpression: curToken='%s'\n", p.curToken.Literal)
+	fmt.Printf("parseExpression: curToken='%s'\n", p.curToken.Literal)
 	prefix := p.prefixParseFns[p.curToken.Type]
 	if prefix == nil {
 		return nil
@@ -177,27 +177,27 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 }
 
 func (p *Parser) parsePrefixExpression() ast.Expression {
-    fmt.Printf("parsePrefixExpression: curToken=%s\n", p.curToken)
-    expression := &ast.PrefixExpression{
-        Token: p.curToken,
-        Operator: p.curToken.Literal,
-    }
+	fmt.Printf("parsePrefixExpression: curToken=%s\n", p.curToken)
+	expression := &ast.PrefixExpression{
+		Token:    p.curToken,
+		Operator: p.curToken.Literal,
+	}
 
-    p.nextToken()
-    expression.Right = p.parseExpression(PREFIX)
-    return expression
+	p.nextToken()
+	expression.Right = p.parseExpression(PREFIX)
+	return expression
 }
 
 // parseIdentifier "foobar;", "<ident>;" に対応
 func (p *Parser) parseIdentifier() ast.Expression {
-    fmt.Printf("parseIdentifier: curToken='%s'\n", p.curToken.Literal)
+	fmt.Printf("parseIdentifier: curToken='%s'\n", p.curToken.Literal)
 	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 }
 
 // parseIntegerLiteral "let x = 5;", "add(5, 10);", "5 + 5 + 5;"
 // "<ident(lit)>;" に対応
 func (p *Parser) parseIntegerLiteral() ast.Expression {
-    fmt.Printf("parseIntegerLiteral: curToken='%s'\n", p.curToken.Literal)    
+	fmt.Printf("parseIntegerLiteral: curToken='%s'\n", p.curToken.Literal)
 	lit := &ast.IntegerLiteral{Token: p.curToken}
 
 	value, err := strconv.ParseInt(p.curToken.Literal, 0, 64)
