@@ -5,8 +5,13 @@ import (
 	"github.com/hangingman/go-monkey/min/ast"
 	"github.com/hangingman/go-monkey/min/lexer"
 	"github.com/hangingman/go-monkey/min/token"
+    "reflect"
 	"testing"
 )
+
+func IsInstanceOf(objectPtr, typePtr interface{}) bool {
+    return reflect.TypeOf(objectPtr) == reflect.TypeOf(typePtr)
+}
 
 func TestCompoundStatements(t *testing.T) {
 	input := `input x; output y;`
@@ -20,14 +25,14 @@ func TestCompoundStatements(t *testing.T) {
 		t.Fatalf("ParseProgram() returned nil")
 	}
 
-	for _, stmt := range program.Statements {
-		fmt.Printf("%s\n", stmt)
+	for i, stmt := range program.Statements {
+		fmt.Printf("[%d] = %s\n", i, reflect.TypeOf(stmt))
 	}
 
-	// if len(program.Statements) != 1 {
-	//     t.Fatalf("program.Statements does not contain 1 statements. got=%d",
-	//     	len(program.Statements))
-	// }
+	if len(program.Statements) != 1 {
+		t.Fatalf("program.Statements does not contain 1 statements. got=%d",
+			len(program.Statements))
+	}
 
 	// tests := []struct {
 	// 	expectedToken     token.Token

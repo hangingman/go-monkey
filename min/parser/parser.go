@@ -86,6 +86,7 @@ func (p *Parser) ParseProgram() *ast.Program {
 
 	for p.curToken().Type != token.EOF {
 		stmt := p.parseStatement()
+        fmt.Printf("ParseProgram: %s\n", stmt)
 		if stmt != nil {
 			program.Statements = append(program.Statements, stmt)
 		}
@@ -101,11 +102,9 @@ func (p *Parser) parseStatement() ast.Statement {
 	}
 	if p.isSimpleStatement() {
 		// 単純文
-		fmt.Printf("isSimpleStatement: true\n")
 		return p.parseSimpleStatement()
 	}
 	// 複合文
-	fmt.Printf("isSimpleStatement: false\n")
 	return p.parseCompoundStatement()
 }
 
@@ -119,7 +118,6 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 	}
 
 	for {
-		// fmt.Printf("cur: %s, peek: %s\n", p.curToken, p.peekToken)
 		stmt.Names = append(stmt.Names, ast.Identifier{Token: p.curToken(), Value: p.curToken().Literal})
 		if !p.expectPeek(token.COMMA) || p.expectPeek(token.SEMICOLON) {
 			break
@@ -136,26 +134,16 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 
 func (p *Parser) isSimpleStatement() bool {
 
-	fmt.Printf("isSimpleStatement?\n")
-	fmt.Printf("[0] = %s\n", p.curToken())
-	fmt.Printf("[1] = %s\n", p.peekToken())
-	fmt.Printf("[2] = %s\n", p.lookAhead(2))
-
 	if p.curTokenIs(token.INPUT) || p.curTokenIs(token.OUTPUT) {
 		if p.lookAheadIs(2, token.SEMICOLON) {
 			return false
 		}
 	}
-
+	// fmt.Printf("isSimpleStatement?: %t\n", true)
 	return true
 }
 
 func (p *Parser) parseSimpleStatement() *ast.SimpleStatement {
-
-	fmt.Printf("simple seq: [0] = %s\n", p.curToken())
-	fmt.Printf("simple seq: [1] = %s\n", p.peekToken())
-	fmt.Printf("simple seq: [2] = %s\n", p.lookAhead(2))
-
 	stmt := &ast.SimpleStatement{Token: p.curToken()}
 
 	switch p.curToken().Type {
@@ -179,28 +167,24 @@ func (p *Parser) parseSimpleStatement() *ast.SimpleStatement {
 }
 
 func (p *Parser) parseCompoundStatement() *ast.CompoundStatement {
-	fmt.Printf("parseCompoundStatement\n")
 	stmt := &ast.CompoundStatement{Tokens: []token.Token{}}
 
 	for {
-		fmt.Printf("comound loop: [0] = %s\n", p.curToken())
-		fmt.Printf("comound loop: [1] = %s\n", p.peekToken())
-		fmt.Printf("comound loop: [2] = %s\n", p.lookAhead(2))
-
 		switch p.curToken().Type {
 		case token.INPUT:
 			simpleStmt := p.parseSimpleStatement()
+            p.curIndex++
 			stmt.Statements = append(stmt.Statements, *simpleStmt)
 			stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
 		case token.OUTPUT:
 			simpleStmt := p.parseSimpleStatement()
+            p.curIndex++
 			stmt.Statements = append(stmt.Statements, *simpleStmt)
 			stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
 		default:
 			return nil
 		}
-		if p.peekToken().Type == token.EOF || p.isSimpleStatement() {
-			println("break !")
+		if p.peekToken().Type == token.EOF {
 			break
 		}
 		p.curIndex++
