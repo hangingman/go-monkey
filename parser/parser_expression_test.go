@@ -64,6 +64,9 @@ func TestIntegerLiteralExpression(t *testing.T) {
 	}
 }
 
+// TestParsingPrefixExpressions
+// 前置演算子のテスト
+// <prefix operator><expression>; のようなコードの解析に対応する
 func TestParsingPrefixExpressions(t *testing.T) {
 	prefixTests := []struct {
 		input        string

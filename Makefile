@@ -27,3 +27,9 @@ fmt:
 	for go_file in `find . -name \*.go`; do \
 		go fmt $${go_file}; \
 	done
+
+emacs:
+	$(GOGET) github.com/rogpeppe/godef
+	$(GOGET) -u github.com/nsf/gocode
+	$(GOGET) github.com/golang/lint/golint
+	$(GOGET) github.com/kisielk/errcheck
