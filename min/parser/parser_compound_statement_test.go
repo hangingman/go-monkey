@@ -5,12 +5,12 @@ import (
 	"github.com/hangingman/go-monkey/min/ast"
 	"github.com/hangingman/go-monkey/min/lexer"
 	"github.com/hangingman/go-monkey/min/token"
-    "reflect"
+	"reflect"
 	"testing"
 )
 
 func IsInstanceOf(objectPtr, typePtr interface{}) bool {
-    return reflect.TypeOf(objectPtr) == reflect.TypeOf(typePtr)
+	return reflect.TypeOf(objectPtr) == reflect.TypeOf(typePtr)
 }
 
 func TestCompoundStatements(t *testing.T) {

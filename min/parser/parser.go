@@ -86,7 +86,7 @@ func (p *Parser) ParseProgram() *ast.Program {
 
 	for p.curToken().Type != token.EOF {
 		stmt := p.parseStatement()
-        fmt.Printf("ParseProgram: %s\n", stmt)
+		fmt.Printf("ParseProgram: %s\n", stmt)
 		if stmt != nil {
 			program.Statements = append(program.Statements, stmt)
 		}
@@ -173,12 +173,12 @@ func (p *Parser) parseCompoundStatement() *ast.CompoundStatement {
 		switch p.curToken().Type {
 		case token.INPUT:
 			simpleStmt := p.parseSimpleStatement()
-            p.curIndex++
+			p.curIndex++
 			stmt.Statements = append(stmt.Statements, *simpleStmt)
 			stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
 		case token.OUTPUT:
 			simpleStmt := p.parseSimpleStatement()
-            p.curIndex++
+			p.curIndex++
 			stmt.Statements = append(stmt.Statements, *simpleStmt)
 			stmt.Tokens = append(stmt.Tokens, simpleStmt.Token)
 		default:
