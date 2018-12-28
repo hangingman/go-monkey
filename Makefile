@@ -33,3 +33,4 @@ emacs:
 	$(GOGET) -u github.com/nsf/gocode
 	$(GOGET) github.com/golang/lint/golint
 	$(GOGET) github.com/kisielk/errcheck
+	$(GOGET) -u github.com/derekparker/delve/cmd/dlv
