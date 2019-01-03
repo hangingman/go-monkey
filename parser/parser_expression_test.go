@@ -64,6 +64,31 @@ func TestIntegerLiteralExpression(t *testing.T) {
 	}
 }
 
+func TestBoolean(t *testing.T) {
+	input := "true"
+
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParseProgram()
+	checkParserErrors(t, p)
+
+	if len(program.Statements) != 1 {
+		t.Fatalf("program has not enough statements. got=%d", len(program.Statements))
+	}
+	stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+	if !ok {
+		t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
+			program.Statements[0])
+	}
+	boolExp, ok := stmt.Expression.(*ast.Boolean)
+	if !ok {
+		t.Fatalf("exp not *ast.Boolean. got=%T", stmt.Expression)
+	}
+	if boolExp.Value != true {
+		t.Errorf("boolExp.Value is not %t. got=%t", true, boolExp.Value)
+	}
+}
+
 // TestParsingPrefixExpressions
 // 前置演算子のテスト
 // <prefix operator><expression>; のようなコードの解析に対応する
@@ -176,7 +201,7 @@ func TestParsingInfixExpressions(t *testing.T) {
 
 func TestOperatorPrecedenceParsing(t *testing.T) {
 	tests := []struct {
-		input string
+		input    string
 		expected string
 	}{
 		{
@@ -231,7 +256,6 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			"3 + 4 * 5 == 3 * 1 + 4 * 5",
 			"((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
 		},
-
 	}
 
 	for _, tt := range tests {
